@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.sneak.mcbr.armour.Armour;
+import net.sneak.mcbr.health.Health;
 import net.sneak.mcbr.inventory.mcbrInventory;
 import net.sneak.mcbr.loot.PlayerInteractListener;
 import net.sneak.mcbr.loot.table.LootTable;
@@ -24,8 +25,6 @@ public class Plugin extends JavaPlugin implements Listener {
 		try {
 			LootTable.init();
 			this.registerEvents();
-			//Bukkit.getServer().getWorlds().get(0).setDifficulty(Difficulty.PEACEFUL);
-			//Bukkit.getServer().getWorlds().get(0).game
 			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.DO_WEATHER_CYCLE, false);
 			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.NATURAL_REGENERATION, false);
 		} catch (Exception e) {
@@ -37,6 +36,7 @@ public class Plugin extends JavaPlugin implements Listener {
 		super.getServer().getPluginManager().registerEvents(new Armour(), this);
 		super.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
 		super.getServer().getPluginManager().registerEvents(new mcbrInventory(), this);
+		super.getServer().getPluginManager().registerEvents(new Health(), this);
 	}
 	
 	@EventHandler

@@ -1,5 +1,6 @@
 package net.sneak.mcbr.armour;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -13,12 +14,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class Armour implements Listener {
 	
-	@SuppressWarnings("incomplete-switch")
 	@EventHandler
 	public void onClickWithArmour(PlayerInteractEvent e) {
 		if(e.getItem() == null)
-			return;
-		if(!e.getItem().getType().equals(Material.IRON_CHESTPLATE) && !e.getItem().getType().equals(Material.GOLDEN_CHESTPLATE) && !e.getItem().getType().equals(Material.DIAMOND_CHESTPLATE) && !e.getItem().getType().equals(Material.CHAINMAIL_CHESTPLATE))
 			return;
 		e.setCancelled(true);
 		switch(e.getItem().getType())
@@ -44,8 +42,12 @@ public class Armour implements Listener {
 		case DIAMOND_CHESTPLATE:
 			e.getPlayer().setExp(0.99f);
 			break;
+		default:
+			e.setCancelled(false);
+			return;
 		}
-		e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+		e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getPlayer().getInventory().getItemInMainHand().getAmount() - 1);
+		Bukkit.getWorlds().get(0).playSound(e.getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_GENERIC, 5, 1);
 		this.updateArmour(e.getPlayer());
 	}
 	
@@ -56,9 +58,9 @@ public class Armour implements Listener {
 			return;
 		Player p = (Player) e.getEntity();
 		if(p.getExp() != 0.00f)
-			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 20, 1);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 10, 1);
 		else
-			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 20, 1);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 10, 1);
 		if(p.getExp() == 0.00f)
 			return;
 		double xpLost = (e.getDamage() * 2) / 100;

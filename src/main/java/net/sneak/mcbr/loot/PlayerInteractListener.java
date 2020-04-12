@@ -13,11 +13,13 @@ public class PlayerInteractListener implements Listener {
 	
 	@EventHandler
 	public void onChestOpen(PlayerInteractEvent e) {
+		if(e.getClickedBlock() == null)
+			return;
 		if(!(e.getClickedBlock().getState() instanceof Chest))
 			return;
 		e.getClickedBlock().getDrops().clear();
-		Bukkit.getWorlds().get(0).spawnParticle(Particle.FIREWORKS_SPARK, e.getClickedBlock().getLocation(), 2);
-		Bukkit.getWorlds().get(0).playSound(e.getClickedBlock().getLocation(), Sound.BLOCK_WOOD_BREAK, 35, 1);
+		Bukkit.getWorlds().get(0).spawnParticle(Particle.FIREWORKS_SPARK, e.getClickedBlock().getLocation(), 5);
+		Bukkit.getWorlds().get(0).playSound(e.getClickedBlock().getLocation(), Sound.BLOCK_WOOD_BREAK, 10, 1);
 		e.getClickedBlock().setType(Material.AIR);
 		e.setCancelled(true);
 	}
