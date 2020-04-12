@@ -1,19 +1,19 @@
 package net.sneak.mcbr.loot.table;
 
-import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class LootItem {
-	private Material material;
+	private ItemStack material;
 	private int quantity;
 	private int weight;
 
-	public LootItem(Material material, int quantity, int weight) {
+	public LootItem(ItemStack material, int quantity, int weight) {
 		this.material = material;
 		this.quantity = quantity;
 		this.weight = weight;
 	}
 
-	public Material getMaterial() {
+	public ItemStack getMaterial() {
 		return material;
 	}
 

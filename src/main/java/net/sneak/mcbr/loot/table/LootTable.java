@@ -42,20 +42,20 @@ public class LootTable {
 				if(s.getLine(2).equals("binomial")) {
 					String[] nString = s.getLine(1).split(" ");
 					BinomialDistribution b = new BinomialDistribution(Integer.parseInt(nString[nString.length - 1]), Double.parseDouble(pString[pString.length - 1]));
-					for(ItemStack i : c.getBlockInventory()) {
+					for(ItemStack i : c.getBlockInventory().getContents()) {
 						if(i != null) {
 							for(int n = 1; n <= b.getNumberOfTrials(); n++) {
 								this.totalWeight += (int) Math.round(b.probability(n) * 1000);
-								this.items.add(new LootItem(i.getType(), n, this.totalWeight));
+								this.items.add(new LootItem(i, n, this.totalWeight));
 							}
 						}
 					}
 				} else {
 					double p = Double.parseDouble(pString[pString.length - 1]);
-					for(ItemStack i : c.getBlockInventory()) {
+					for(ItemStack i : c.getBlockInventory().getContents()) {
 						if(i != null) {
 							this.totalWeight += (int) Math.round(p * 1000);
-							this.items.add(new LootItem(i.getType(), 1, this.totalWeight));
+							this.items.add(new LootItem(i, 1, this.totalWeight));
 						}
 					}
 				}
@@ -74,7 +74,9 @@ public class LootTable {
 				int index = 0;
 				while(this.items.get(index).getWeight() < rNumber)
 					index++;
-				itemsToAdd[i] = new ItemStack(this.items.get(index).getMaterial(), this.items.get(index).getQuantity());
+				//itemsToAdd[i] = new ItemStack(this.items.get(index).getMaterial(), this.items.get(index).getQuantity());
+				itemsToAdd[i] = new ItemStack(this.items.get(index).getMaterial());
+				itemsToAdd[i].setAmount(this.items.get(index).getQuantity());
 			}
 			c.getInventory().addItem(itemsToAdd);
 		}

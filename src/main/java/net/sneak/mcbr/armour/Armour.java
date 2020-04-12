@@ -18,28 +18,31 @@ public class Armour implements Listener {
 	public void onClickWithArmour(PlayerInteractEvent e) {
 		if(e.getItem() == null)
 			return;
-		if(!e.getItem().getType().equals(Material.IRON_CHESTPLATE) && !e.getItem().getType().equals(Material.GOLDEN_CHESTPLATE) && !e.getItem().getType().equals(Material.DIAMOND_CHESTPLATE))
+		if(!e.getItem().getType().equals(Material.IRON_CHESTPLATE) && !e.getItem().getType().equals(Material.GOLDEN_CHESTPLATE) && !e.getItem().getType().equals(Material.DIAMOND_CHESTPLATE) && !e.getItem().getType().equals(Material.CHAINMAIL_CHESTPLATE))
 			return;
 		e.setCancelled(true);
 		switch(e.getItem().getType())
 		{
-		case IRON_CHESTPLATE:
+		case CHAINMAIL_CHESTPLATE:
 			if(e.getPlayer().getExp() < 0.67f)
 				e.getPlayer().setExp(e.getPlayer().getExp() + 0.33f);
 			else
 				e.getPlayer().setExp(0.99f);
 			break;
-		case GOLDEN_CHESTPLATE:
+		case IRON_CHESTPLATE:
 			if(e.getPlayer().getExp() < 0.50f)
 				e.getPlayer().setExp(e.getPlayer().getExp() + 0.50f);
 			else
 				e.getPlayer().setExp(0.99f);
 			break;
-		case DIAMOND_CHESTPLATE:
+		case GOLDEN_CHESTPLATE:
 			if(e.getPlayer().getExp() < 0.20f)
 				e.getPlayer().setExp(e.getPlayer().getExp() + 0.80f);
 			else
 				e.getPlayer().setExp(0.99f);
+			break;
+		case DIAMOND_CHESTPLATE:
+			e.getPlayer().setExp(0.99f);
 			break;
 		}
 		e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
@@ -58,7 +61,7 @@ public class Armour implements Listener {
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 20, 1);
 		if(p.getExp() == 0.00f)
 			return;
-		double xpLost = (e.getDamage() * 4) / 100;
+		double xpLost = (e.getDamage() * 2) / 100;
 		if(xpLost > p.getExp()) {
 			p.setExp(0.00f);
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 10, 1);
