@@ -16,6 +16,8 @@ public class Armour implements Listener {
 	@SuppressWarnings("incomplete-switch")
 	@EventHandler
 	public void onClickWithArmour(PlayerInteractEvent e) {
+		if(e.getItem() == null)
+			return;
 		if(!e.getItem().getType().equals(Material.IRON_CHESTPLATE) && !e.getItem().getType().equals(Material.GOLDEN_CHESTPLATE) && !e.getItem().getType().equals(Material.DIAMOND_CHESTPLATE))
 			return;
 		e.setCancelled(true);
@@ -40,6 +42,7 @@ public class Armour implements Listener {
 				e.getPlayer().setExp(0.99f);
 			break;
 		}
+		e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 		this.updateArmour(e.getPlayer());
 	}
 	
@@ -49,20 +52,20 @@ public class Armour implements Listener {
 		if(!(e.getEntity() instanceof Player))
 			return;
 		Player p = (Player) e.getEntity();
-		if(p.getExp() >= 0.25f)
+		if(p.getExp() != 0.00f)
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 20, 1);
 		else
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 20, 1);
-		if(p.getExp() == 0f)
+		if(p.getExp() == 0.00f)
 			return;
-		e.setDamage(0);
 		double xpLost = (e.getDamage() * 4) / 100;
 		if(xpLost > p.getExp()) {
-			p.setExp(0);
+			p.setExp(0.00f);
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 10, 1);
 		}
 		else
 			p.setExp(p.getExp() - (float) xpLost);
+		e.setDamage(0.00);
 		this.updateArmour(p);
 	}
 	
@@ -78,12 +81,12 @@ public class Armour implements Listener {
 			p.getInventory().setChestplate(null);
 			p.getInventory().setLeggings(null);
 			p.getInventory().setBoots(null);
-		} else if(p.getExp() < 0.33f) {
+		} else if(p.getExp() <= 0.33f) {
 			p.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
 			p.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
 			p.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
 			p.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
-		} else if(p.getExp() < 0.66f) {
+		} else if(p.getExp() <= 0.66f) {
 			p.getInventory().setHelmet(new ItemStack(Material.GOLDEN_HELMET));
 			p.getInventory().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
 			p.getInventory().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
