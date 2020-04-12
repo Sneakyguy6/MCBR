@@ -12,21 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class mcbrInventory implements Listener {
-	/*@EventHandler
-	public void onPlayerPickup(EntityPickupItemEvent e) {
-		if(!(e.getEntity() instanceof Player))
-			return;
-		Player p = (Player) e.getEntity();
-		boolean full = true;
-		for(int i = 0; i < 9; i++) {
-			if(p.getInventory().getContents()[i] == null) {
-				full = false;
-				break;
-			}
-		}
-		if(full)
-			e.setCancelled(true);
-	}*/
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(InventoryClickEvent e) {
