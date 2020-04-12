@@ -27,6 +27,7 @@ public class Plugin extends JavaPlugin implements Listener {
 			this.registerEvents();
 			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.DO_WEATHER_CYCLE, false);
 			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.NATURAL_REGENERATION, false);
+			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
