@@ -14,14 +14,26 @@ import org.bukkit.inventory.ItemStack;
 import net.sneak.mcbr.loot.ChestScanner;
 
 public class LootTable {
+	private static LootTable instance;
 	private List<LootItem> items;
 	private int totalWeight;
-	public LootTable() {
-		this.items = new ArrayList<LootItem>();
-		this.totalWeight = 0;
+	
+	public static void init() {
+		instance = new LootTable();
 	}
 	
-	public void generateTable() {
+	public static LootTable getInstance() {
+		return instance;
+	}
+	
+	private LootTable() {
+		this.items = new ArrayList<LootItem>();
+		this.totalWeight = 0;
+		this.generateTable();
+		this.generateLoot();
+	}
+	
+	private void generateTable() {
 		for(int x = -3; x <= 3; x =+ 6) {
 			for(int z = -3; z <= 7; z += 2) {
 				Chest c = (Chest) Bukkit.getWorlds().get(0).getBlockAt(x, 2, z).getState();
@@ -47,7 +59,7 @@ public class LootTable {
 		}
 	}
 	
-	public void generateLoot() {
+	private void generateLoot() {
 		for(Location l : ChestScanner.locate()) {
 			Chest c = (Chest) Bukkit.getWorlds().get(0).getBlockAt(l).getState();
 			c.getInventory().clear();
@@ -62,5 +74,9 @@ public class LootTable {
 			}
 			c.getInventory().addItem(itemsToAdd);
 		}
+	}
+	
+	public List<LootItem> getItems() {
+		return this.items;
 	}
 }

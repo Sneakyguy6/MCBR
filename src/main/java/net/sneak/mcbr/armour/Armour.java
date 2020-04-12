@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -40,7 +41,7 @@ public class Armour implements Listener {
 		this.updateArmour(e.getPlayer());
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onDamageEvent(EntityDamageEvent e) {
 		e.setCancelled(true);
 		if(!(e.getEntity() instanceof Player))
@@ -51,8 +52,10 @@ public class Armour implements Listener {
 		else
 			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 20, 1);
 		double xpLost = (e.getDamage() * 4) / 100;
-		if(xpLost > p.getExp())
+		if(xpLost > p.getExp()) {
 			p.setExp(0);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 20, 1);
+		}
 		else
 			p.setExp(p.getExp() - (float) xpLost);
 		this.updateArmour(p);

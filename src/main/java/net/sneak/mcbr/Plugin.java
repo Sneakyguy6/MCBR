@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.sneak.mcbr.loot.table.LootTable;
+
 public class Plugin extends JavaPlugin {
 	private static Plugin instance;
 	public static Plugin getInstance() {
@@ -16,6 +18,7 @@ public class Plugin extends JavaPlugin {
 		try {
 			if(!super.getDataFolder().exists())
 				super.getDataFolder().createNewFile();
+			LootTable.init();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
