@@ -1,10 +1,8 @@
 package net.sneak.mcbr;
 
-import java.io.IOException;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.sneak.mcbr.loot.table.LootTable;
+import net.sneak.mcbr.armour.Armour;
 
 public class Plugin extends JavaPlugin {
 	private static Plugin instance;
@@ -16,10 +14,9 @@ public class Plugin extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		try {
-			if(!super.getDataFolder().exists())
-				super.getDataFolder().createNewFile();
-			LootTable.init();
-		} catch (IOException e) {
+			//LootTable.init();
+			super.getServer().getPluginManager().registerEvents(new Armour(), this);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

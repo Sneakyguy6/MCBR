@@ -1,3 +1,4 @@
 name: MCBR
 version: R1.0
 main: net.sneak.mcbr.Plugin
+api-version: 1.15
