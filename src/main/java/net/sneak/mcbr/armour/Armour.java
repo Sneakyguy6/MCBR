@@ -46,7 +46,7 @@ public class Armour implements Listener {
 			e.setCancelled(false);
 			return;
 		}
-		e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getPlayer().getInventory().getItemInMainHand().getAmount() - 1);
+		e.getItem().setAmount(e.getItem().getAmount() - 1);
 		Bukkit.getWorlds().get(0).playSound(e.getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_GENERIC, 5, 1);
 		this.updateArmour(e.getPlayer());
 	}

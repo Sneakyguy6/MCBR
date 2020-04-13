@@ -10,8 +10,8 @@ import org.bukkit.Material;
 public class ChestScanner {
 	public static List<Location> locate() {
 		List<Location> chests = new ArrayList<Location>();
-		for (int i = -250; i <= 250; i++) {
-			for (int k = -250; k <= 250; k++) {
+		for (int i = -256; i <= 256; i++) {
+			for (int k = -256; k <= 256; k++) {
 				for (int j = 6; j <= 255; j++) {
 					Location l = new Location(Bukkit.getWorlds().get(0), i, j, k);
 					if (l.getBlock().getBlockData().getMaterial().equals(Material.CHEST))
