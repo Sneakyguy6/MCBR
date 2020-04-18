@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.sneak.mcbr.armour.Armour;
+import net.sneak.mcbr.enchant.EnchantInventory;
 import net.sneak.mcbr.enchant.Interact;
 import net.sneak.mcbr.health.Health;
 import net.sneak.mcbr.inventory.mcbrInventory;
@@ -39,7 +40,9 @@ public class Plugin extends JavaPlugin implements Listener {
 		super.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
 		super.getServer().getPluginManager().registerEvents(new mcbrInventory(), this);
 		super.getServer().getPluginManager().registerEvents(new Health(), this);
-		super.getServer().getPluginManager().registerEvents(new Interact(), this);
+		EnchantInventory temp = new EnchantInventory();
+		super.getServer().getPluginManager().registerEvents(temp, this);
+		super.getServer().getPluginManager().registerEvents(new Interact(temp), this);
 	}
 	
 	@EventHandler

@@ -24,13 +24,13 @@ public class Health implements Listener {
 			health += 5;
 			break;
 		case APPLE:
-			health += 1.5;
+			health += 1;
 			break;
 		case COOKED_CHICKEN:
 			health += 3;
 			break;
 		case BREAD:
-			health += 3.5;
+			health += 2;
 			break;
 		default:
 			e.setCancelled(false);

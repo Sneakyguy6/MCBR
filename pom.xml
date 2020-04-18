@@ -28,6 +28,15 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<outputDirectory>Z:\MC servers\bungeecord1552 test environment\1152MCBR\plugins</outputDirectory>
+					<!-- <outputDirectory>Z:\MC servers\1122SpigotServerMceLib\plugins</outputDirectory> -->
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
