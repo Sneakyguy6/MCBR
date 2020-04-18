@@ -39,8 +39,9 @@ public class Interact implements Listener {
 		}
 		int noOfLapis = 0;
 		for(int i = 0; i < 9; i++)
-			if(e.getWhoClicked().getInventory().getItem(i).getType() == Material.LAPIS_LAZULI)
-				noOfLapis += e.getWhoClicked().getInventory().getItem(i).getAmount();
+			if(e.getWhoClicked().getInventory().getItem(i) != null)
+				if(e.getWhoClicked().getInventory().getItem(i).getType() == Material.LAPIS_LAZULI)
+					noOfLapis += e.getWhoClicked().getInventory().getItem(i).getAmount();
 		for(int i = 0; i < 9; i++) {
 			ItemStack item = e.getWhoClicked().getInventory().getItem(i);
 			Map<Enchantment, Integer> enchants;
@@ -49,8 +50,6 @@ public class Interact implements Listener {
 			} catch (ClassCastException e1) {
 				continue;
 			}
-			//if(enchants.size() > 0)
-			//	System.out.println(enchants.size() + " " + enchants.keySet().iterator().next() + " " + enchants.values().iterator().next());
 			if(enchants.size() == 1 && enchants.keySet().iterator().next().equals(ent) && (enchants.values().iterator().next() == e.getCurrentItem().getItemMeta().getEnchants().get(ent) - 1)) {
 				if(noOfLapis < Math.pow(2, e.getCurrentItem().getItemMeta().getEnchants().get(ent))) {
 					e.getWhoClicked().sendMessage(ChatColor.RED + "You do not have enough lapis.");
@@ -66,6 +65,8 @@ public class Interact implements Listener {
 				e.getWhoClicked().getInventory().setItem(i, item);
 				noOfLapis = (int) Math.round(Math.pow(2, e.getCurrentItem().getItemMeta().getEnchants().get(ent)));
 				for(int j = 0; j < 9; j++) {
+					if(e.getWhoClicked().getInventory().getItem(j) == null)
+						continue;
 					ItemStack temp = e.getWhoClicked().getInventory().getItem(j);
 					if(temp.getType() == Material.LAPIS_LAZULI) {
 						if(temp.getAmount() <= noOfLapis) {

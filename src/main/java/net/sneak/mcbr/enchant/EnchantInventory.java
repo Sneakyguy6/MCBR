@@ -115,7 +115,7 @@ public class EnchantInventory implements Listener {
 				nextAvailable = new ItemStack(Material.ENCHANTED_BOOK);
 				meta = nextAvailable.getItemMeta();
 				meta.addEnchant(ent, ((EnchantmentStorageMeta) item.getItemMeta()).getStoredEnchants().get(ent) + 1, false);
-				meta.setDisplayName(Double.toString(Math.pow(2, meta.getEnchants().values().iterator().next())) + " lapis");
+				meta.setDisplayName(Integer.toString((int) Math.pow(2, meta.getEnchants().values().iterator().next())) + " lapis");
 				nextAvailable.setItemMeta(meta);
 			}
 			else {
