@@ -101,7 +101,7 @@ public class EnchantInventory implements Listener {
 			ItemStack alreadyAquired = new ItemStack(Material.BOOK);
 			ItemMeta meta = alreadyAquired.getItemMeta();
 			meta.addEnchant(ent, 1, true);
-			meta.setDisplayName("Aquired");
+			meta.setDisplayName("Acquired");
 			meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
 			alreadyAquired.setItemMeta(meta);
 			for(; inventoryIndex < ((EnchantmentStorageMeta) item.getItemMeta()).getStoredEnchants().get(ent) + (inventoryIndex - (inventoryIndex % 9)); inventoryIndex++) {
