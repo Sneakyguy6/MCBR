@@ -1,6 +1,8 @@
 package net.sneak.mcbr.inventory;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -13,6 +15,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class mcbrInventory implements Listener {
 	
+	public mcbrInventory() {
+		Bukkit.getOnlinePlayers().forEach((player) -> {
+			this.addInventoryItems(player);
+		});
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onItemClick(InventoryClickEvent e) {
 		if((e.isRightClick() || e.isLeftClick() || e.getAction().equals(InventoryAction.HOTBAR_SWAP)) && e.getSlot() >= 9)
@@ -23,11 +31,15 @@ public class mcbrInventory implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
+		this.addInventoryItems(e.getPlayer());
+	}
+	
+	private void addInventoryItems(Player p) {
 		ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(" ");
 		item.setItemMeta(meta);
 		for(int i = 9; i < 36; i++)
-			e.getPlayer().getInventory().setItem(i, item);
+			p.getInventory().setItem(i, item);
 	}
 }
