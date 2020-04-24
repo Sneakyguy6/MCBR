@@ -53,7 +53,7 @@ public class Interact implements Listener {
 			if(enchants.size() == 1 && enchants.keySet().iterator().next().equals(ent) && (enchants.values().iterator().next() == e.getCurrentItem().getItemMeta().getEnchants().get(ent) - 1)) {
 				if(noOfLapis < Math.pow(2, e.getCurrentItem().getItemMeta().getEnchants().get(ent))) {
 					e.getWhoClicked().sendMessage(ChatColor.RED + "You do not have enough lapis.");
-					((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 10, 1);
+					((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1, 1);
 					return;
 				}
 				EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
@@ -61,7 +61,7 @@ public class Interact implements Listener {
 				meta.removeStoredEnchant(ent);
 				meta.addStoredEnchant(ent, level, false);
 				item.setItemMeta(meta);
-				((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_ANVIL_USE, 10, 1);
+				((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
 				e.getWhoClicked().getInventory().setItem(i, item);
 				noOfLapis = (int) Math.round(Math.pow(2, e.getCurrentItem().getItemMeta().getEnchants().get(ent)));
 				for(int j = 0; j < 9; j++) {
@@ -82,6 +82,6 @@ public class Interact implements Listener {
 				return;
 			}
 		}
-		((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 10, 1);
+		((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_NOTE_BLOCK_SNARE, 1, 1);
 	}
 }

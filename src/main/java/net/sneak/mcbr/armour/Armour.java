@@ -58,15 +58,15 @@ public class Armour implements Listener {
 			return;
 		Player p = (Player) e.getEntity();
 		if(p.getExp() != 0.00f)
-			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 10, 1);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BLAZE_HURT, 1, 1);
 		else
-			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 10, 1);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_HURT, 1, 1);
 		if(p.getExp() == 0.00f)
 			return;
 		double xpLost = (e.getDamage() * 2) / 100;
 		if(xpLost > p.getExp()) {
 			p.setExp(0.00f);
-			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 10, 1);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1, 1);
 		}
 		else
 			p.setExp(p.getExp() - (float) xpLost);
