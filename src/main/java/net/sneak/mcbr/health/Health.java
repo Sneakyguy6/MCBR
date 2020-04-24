@@ -40,7 +40,7 @@ public class Health implements Listener {
 			health = 20;
 		e.getPlayer().setHealth(health);
 		e.getItem().setAmount(e.getItem().getAmount() - 1);
-		Bukkit.getWorlds().get(0).playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_EAT, 5, 1);
+		Bukkit.getWorlds().get(0).playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 		Bukkit.getWorlds().get(0).spawnParticle(Particle.HEART, e.getPlayer().getLocation().add(0, 2, 0), 20);
 	}
 }
