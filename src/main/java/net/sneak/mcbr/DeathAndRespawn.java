@@ -65,7 +65,7 @@ public class DeathAndRespawn implements Listener {
 		if(damage > p.getHealth()) {
 			p.setGameMode(GameMode.SPECTATOR);
 			if(killer.length == 1)
-				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + " was killed by " + killer[0]);
+				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + " was killed by " + killer[0] + ChatColor.YELLOW + " using " + ChatColor.AQUA + killer[0].getInventory().getItemInMainHand().getItemMeta().getDisplayName());
 			else
 				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + "died");
 			return true;
