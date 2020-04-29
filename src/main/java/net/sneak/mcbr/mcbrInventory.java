@@ -1,4 +1,4 @@
-package net.sneak.mcbr.inventory;
+package net.sneak.mcbr;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,7 +15,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class mcbrInventory implements Listener {
 	
+	private ItemStack inventoryLockItem;
 	public mcbrInventory() {
+		this.inventoryLockItem = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+		ItemMeta meta = this.inventoryLockItem.getItemMeta();
+		meta.setDisplayName(" ");
+		this.inventoryLockItem.setItemMeta(meta);
 		Bukkit.getOnlinePlayers().forEach((player) -> {
 			this.addInventoryItems(player);
 		});
@@ -35,12 +40,12 @@ public class mcbrInventory implements Listener {
 	}
 	
 	private void addInventoryItems(Player p) {
-		ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(" ");
-		item.setItemMeta(meta);
 		for(int i = 9; i < 36; i++)
-			p.getInventory().setItem(i, item);
-		p.getInventory().setItem(38, item);
+			p.getInventory().setItem(i, this.inventoryLockItem);
+		//p.getInventory().setItem(38, item); handled by elytra class
+	}
+	
+	public ItemStack getinventoryLockItem() {
+		return this.inventoryLockItem;
 	}
 }

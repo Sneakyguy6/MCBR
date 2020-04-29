@@ -1,4 +1,4 @@
-package net.sneak.mcbr.health;
+package net.sneak.mcbr;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;

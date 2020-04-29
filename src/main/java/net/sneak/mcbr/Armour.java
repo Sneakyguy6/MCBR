@@ -1,4 +1,4 @@
-package net.sneak.mcbr.armour;
+package net.sneak.mcbr;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
