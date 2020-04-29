@@ -46,6 +46,7 @@ public class Plugin extends JavaPlugin implements Listener {
 		EnchantInventory temp = new EnchantInventory();
 		super.getServer().getPluginManager().registerEvents(temp, this);
 		super.getServer().getPluginManager().registerEvents(new Interact(temp), this);
+		super.getServer().getPluginManager().registerEvents(new DeathAndRespawn(), this);
 	}
 	
 	@EventHandler
