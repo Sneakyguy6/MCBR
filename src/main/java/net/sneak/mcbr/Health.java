@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import net.md_5.bungee.api.ChatColor;
@@ -28,13 +28,9 @@ public class Health implements Listener {
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onClick(PlayerInteractEvent e) {
-		if(e.getItem() == null)
+	public void onClick(PlayerItemConsumeEvent e) {
+		if(e.getItem() == null || e.getPlayer().getHealth() == 20)
 			return;
-		else if(e.getPlayer().getHealth() == 20) {
-			e.getPlayer().sendMessage(ChatColor.GREEN + "Your health is full!");
-			return;
-		}
 		else if(this.cooldowns.get(e.getPlayer()) > System.currentTimeMillis()) {
 			e.getPlayer().sendMessage(ChatColor.GREEN + "You cannot eat for " + ChatColor.DARK_GREEN + (((this.cooldowns.get(e.getPlayer()) - System.currentTimeMillis()) / 1000) * 1d) + ChatColor.GREEN + " seconds" );
 			return;
@@ -65,6 +61,6 @@ public class Health implements Listener {
 		e.getItem().setAmount(e.getItem().getAmount() - 1);
 		Bukkit.getWorlds().get(0).playSound(e.getPlayer().getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
 		Bukkit.getWorlds().get(0).spawnParticle(Particle.HEART, e.getPlayer().getLocation().add(0, 2, 0), 20);
-		this.cooldowns.put(e.getPlayer(), System.currentTimeMillis() + 3000);
+		this.cooldowns.put(e.getPlayer(), System.currentTimeMillis() + 1000);
 	}
 }

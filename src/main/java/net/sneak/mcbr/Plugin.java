@@ -9,11 +9,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.sneak.mcbr.enchant.EnchantInventory;
 import net.sneak.mcbr.enchant.Interact;
+import net.sneak.mcbr.join.McbrSocket;
 import net.sneak.mcbr.loot.PlayerInteractListener;
 import net.sneak.mcbr.loot.table.LootTable;
 
 public class Plugin extends JavaPlugin implements Listener {
 	private static Plugin instance;
+	
+	
 	public static Plugin getInstance() {
 		return instance;
 	}
@@ -23,6 +26,7 @@ public class Plugin extends JavaPlugin implements Listener {
 		instance = this;
 		try {
 			LootTable.init();
+			McbrSocket.init();
 			this.registerEvents();
 			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.DO_WEATHER_CYCLE, false);
 			Bukkit.getServer().getWorlds().get(0).setGameRule(GameRule.NATURAL_REGENERATION, false);

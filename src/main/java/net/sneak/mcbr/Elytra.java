@@ -28,9 +28,7 @@ public class Elytra implements Listener {
 		try {
 			if(((Player) e.getEntity()).getInventory().getChestplate().getType() == Material.ELYTRA)
 				e.setDamage(0);
-			System.out.println("test");
 		} catch (ClassCastException e1) {
-			//e1.printStackTrace();
 		}
 	}
 	
