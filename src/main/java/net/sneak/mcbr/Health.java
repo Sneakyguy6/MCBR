@@ -29,10 +29,14 @@ public class Health implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onClick(PlayerInteractEvent e) {
-		if(e.getItem() == null || e.getPlayer().getHealth() == 20)
+		if(e.getItem() == null)
 			return;
-		if(this.cooldowns.get(e.getPlayer()) > System.currentTimeMillis()) {
-			e.getPlayer().sendMessage(ChatColor.GREEN + "You cannot eat for " + ChatColor.DARK_GREEN + ((this.cooldowns.get(e.getPlayer()) - System.currentTimeMillis()) / 1000) + ChatColor.GREEN + " seconds" );
+		else if(e.getPlayer().getHealth() == 20) {
+			e.getPlayer().sendMessage(ChatColor.GREEN + "Your health is full!");
+			return;
+		}
+		else if(this.cooldowns.get(e.getPlayer()) > System.currentTimeMillis()) {
+			e.getPlayer().sendMessage(ChatColor.GREEN + "You cannot eat for " + ChatColor.DARK_GREEN + (((this.cooldowns.get(e.getPlayer()) - System.currentTimeMillis()) / 1000) * 1d) + ChatColor.GREEN + " seconds" );
 			return;
 		}
 		e.setCancelled(true);
