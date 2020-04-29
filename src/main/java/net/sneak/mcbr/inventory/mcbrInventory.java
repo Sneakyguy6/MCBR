@@ -41,5 +41,6 @@ public class mcbrInventory implements Listener {
 		item.setItemMeta(meta);
 		for(int i = 9; i < 36; i++)
 			p.getInventory().setItem(i, item);
+		p.getInventory().setItem(38, item);
 	}
 }
