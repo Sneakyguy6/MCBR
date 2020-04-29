@@ -34,7 +34,7 @@ public class Join implements Listener {
 		for(; index < players.length; index++)
 			if(e.getPlayer().getUniqueId().toString().equals(this.players[index]))
 				break;
-		Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard().getTeam(this.teamNames[index / 3]).addEntry(e.getPlayer().getDisplayName());
+		Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard().getTeam(this.teamNames[index / Integer.parseInt(this.settings.get("TEAMSIZE"))]).addEntry(e.getPlayer().getDisplayName());
 	}
 
 	public void setSettingsAndPlayerList(String in) {
