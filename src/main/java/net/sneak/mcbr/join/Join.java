@@ -53,7 +53,7 @@ public class Join implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onSpawn(PlayerSpawnLocationEvent e) {
-		e.setSpawnLocation(new Location(Bukkit.getWorlds().get(0), 0, 242, -235));
+		e.setSpawnLocation(new Location(Bukkit.getWorlds().get(0), 0, 244, -236));
 	}
 
 	public void setSettingsAndPlayerList(String in) {
