@@ -20,6 +20,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class DeathAndRespawn implements Listener {
 	@EventHandler
 	public void onBeaconClick(PlayerInteractEvent e) {
+		if(e.getClickedBlock() == null)
+			return;
 		if(e.getClickedBlock().getType() != Material.BEACON)
 			return;
 		new Thread(new Runnable() {
@@ -67,7 +69,7 @@ public class DeathAndRespawn implements Listener {
 			if(killer.length == 1)
 				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + " was killed by " + killer[0] + ChatColor.YELLOW + " using " + ChatColor.AQUA + killer[0].getInventory().getItemInMainHand().getItemMeta().getDisplayName());
 			else
-				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + "died");
+				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + " died");
 			return true;
 		}
 		return false;

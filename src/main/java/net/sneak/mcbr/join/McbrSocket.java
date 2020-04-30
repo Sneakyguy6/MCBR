@@ -38,7 +38,7 @@ public class McbrSocket implements AutoCloseable {
 					socket = serverSocket.accept();
 					br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					String data = br.readLine();
-					System.out.println("List recieved: " + data);
+					System.out.println("Recieved: " + data);
 					Join.getInstance().setSettingsAndPlayerList(data);
 				} catch (Exception e) {
 					e.printStackTrace();

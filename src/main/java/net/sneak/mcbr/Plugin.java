@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.sneak.mcbr.enchant.EnchantInventory;
 import net.sneak.mcbr.enchant.Interact;
+import net.sneak.mcbr.join.Join;
 import net.sneak.mcbr.join.McbrSocket;
 import net.sneak.mcbr.loot.PlayerInteractListener;
 import net.sneak.mcbr.loot.table.LootTable;
@@ -47,6 +48,7 @@ public class Plugin extends JavaPlugin implements Listener {
 		super.getServer().getPluginManager().registerEvents(temp, this);
 		super.getServer().getPluginManager().registerEvents(new Interact(temp), this);
 		super.getServer().getPluginManager().registerEvents(new DeathAndRespawn(), this);
+		super.getServer().getPluginManager().registerEvents(new Join(), this);
 	}
 	
 	@EventHandler
@@ -57,6 +59,10 @@ public class Plugin extends JavaPlugin implements Listener {
 
 	@Override
 	public void onDisable() {
-		
+		try {
+			McbrSocket.getInstance().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

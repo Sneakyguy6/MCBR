@@ -3,18 +3,23 @@ package net.sneak.mcbr.join;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.Scoreboard;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
+import net.sneak.mcbr.MoveBus;
 import net.sneak.mcbr.Plugin;
 
 public class Join implements Listener {
 	private static Join instance;
-
+	private int counter;
 	private Map<String, String> settings;
 	private String[] players;
 	private String[] teamNames;
@@ -26,15 +31,29 @@ public class Join implements Listener {
 	public Join() {
 		instance = this;
 		this.settings = new HashMap<String, String>();
+		this.counter = 0;
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
-		int index = 0;
-		for(; index < players.length; index++)
-			if(e.getPlayer().getUniqueId().toString().equals(this.players[index]))
-				break;
-		Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard().getTeam(this.teamNames[index / Integer.parseInt(this.settings.get("TEAMSIZE"))]).addEntry(e.getPlayer().getDisplayName());
+		if(this.counter == this.players.length) {
+			e.getPlayer().setGameMode(GameMode.SPECTATOR);
+		}
+		else {
+			int index = 0;
+			for(; index < players.length; index++)
+				if(e.getPlayer().getUniqueId().toString().equals(this.players[index]))
+					break;
+			Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard().getTeam(this.teamNames[index / Integer.parseInt(this.settings.get("TEAMSIZE"))]).addEntry(e.getPlayer().getDisplayName());
+			this.counter++;
+			if(this.counter == this.players.length)
+				MoveBus.move();
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onSpawn(PlayerSpawnLocationEvent e) {
+		e.setSpawnLocation(new Location(Bukkit.getWorlds().get(0), 0, 242, -235));
 	}
 
 	public void setSettingsAndPlayerList(String in) {

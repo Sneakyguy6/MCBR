@@ -19,7 +19,7 @@ public class PlayerInteractListener implements Listener {
 			return;
 		e.getClickedBlock().getDrops().clear();
 		Bukkit.getWorlds().get(0).spawnParticle(Particle.FIREWORKS_SPARK, e.getClickedBlock().getLocation(), 5);
-		Bukkit.getWorlds().get(0).playSound(e.getClickedBlock().getLocation(), Sound.BLOCK_WOOD_BREAK, 10, 1);
+		Bukkit.getWorlds().get(0).playSound(e.getClickedBlock().getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 		e.getClickedBlock().setType(Material.AIR);
 		e.setCancelled(true);
 	}
