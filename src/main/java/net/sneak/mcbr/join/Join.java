@@ -40,6 +40,7 @@ public class Join implements Listener {
 			e.getPlayer().setGameMode(GameMode.SPECTATOR);
 		}
 		else {
+			e.getPlayer().setGameMode(GameMode.SURVIVAL);
 			int index = 0;
 			for(; index < players.length; index++)
 				if(e.getPlayer().getUniqueId().toString().equals(this.players[index]))
