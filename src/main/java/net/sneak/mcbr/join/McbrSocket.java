@@ -49,8 +49,11 @@ public class McbrSocket implements AutoCloseable {
 
 	@Override
 	public void close() throws Exception {
-		this.br.close();
-		this.socket.close();
-		this.serverSocket.close();
+		if(this.br != null)
+			this.br.close();
+		if(this.socket != null)
+			this.socket.close();
+		if(this.serverSocket != null)
+			this.serverSocket.close();
 	}
 }
