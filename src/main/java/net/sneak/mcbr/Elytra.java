@@ -20,7 +20,8 @@ public class Elytra implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
-		e.getPlayer().getInventory().setItem(38, new ItemStack(Material.ELYTRA));	
+		e.getPlayer().getInventory().setItem(38, new ItemStack(Material.ELYTRA));
+		e.getPlayer().setInvulnerable(true);
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -38,8 +39,10 @@ public class Elytra implements Listener {
 			@Override
 			public void run() {
 				try {
-					if(!e.isGliding() && e.getEntity().getLocation().getY() < 100)
+					if(!e.isGliding() && e.getEntity().getLocation().getY() < 100) {
 						((Player) e.getEntity()).getInventory().setItem(38, inventoryLockItem);
+						((Player) e.getEntity()).setInvulnerable(false);
+					}
 				} catch (ClassCastException e1) {
 				}
 			}
