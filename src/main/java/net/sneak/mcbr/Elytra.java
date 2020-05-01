@@ -18,7 +18,7 @@ public class Elytra implements Listener {
 		this.inventoryLockItem = inv.getinventoryLockItem();
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
 		e.getPlayer().getInventory().setItem(38, new ItemStack(Material.ELYTRA));
 		e.getPlayer().setInvulnerable(true);

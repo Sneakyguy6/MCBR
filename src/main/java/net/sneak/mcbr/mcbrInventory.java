@@ -34,7 +34,7 @@ public class mcbrInventory implements Listener {
 			e.setCancelled(true);
 	}
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
 		e.getPlayer().getInventory().clear();
 		this.addInventoryItems(e.getPlayer());
