@@ -75,6 +75,7 @@ public class Join implements Listener {
 			s.registerNewTeam(i);
 			s.getTeam(i).setColor(ChatColor.values()[counter % ChatColor.values().length]);
 			s.getTeam(i).setAllowFriendlyFire(false);
+			counter++;
 		}
 	}
 }
