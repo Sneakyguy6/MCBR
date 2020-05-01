@@ -43,9 +43,11 @@ public class MoveBus {
 					Bukkit.getServer().getWorlds().get(0).getBlockAt(i, j, k).setBlockData((bus[i + 16][j - 240][beginningZValue - k].getBlockData()), true);
 				}
 		Bukkit.getOnlinePlayers().forEach((p) -> {
-			if(!p.isGliding() && p.getInventory().getItem(38).getType() == Material.ELYTRA)
-				p.teleport(p.getLocation().add(0, 0, 1));
-			//p.getLocation().add(0, 0, 1);
+			try {
+				if(!p.isGliding() && p.getInventory().getItem(38).getType() == Material.ELYTRA)
+					p.teleport(p.getLocation().add(0, 0, 1));
+			} catch (NullPointerException e) {
+			}
 		});
 	}
 }
