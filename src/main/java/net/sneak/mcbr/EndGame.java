@@ -47,7 +47,7 @@ public class EndGame implements Listener {
 	}
 	
 	private void gameOver() {
-		if(this.teams.size() != 1)
+		if(this.teams.size() > 1)
 			return;
 		new Thread(new Runnable() {
 			@Override
