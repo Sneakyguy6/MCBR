@@ -69,7 +69,7 @@ public class LootTable {
 			c.getInventory().clear();
 			ItemStack[] itemsToAdd = new ItemStack[5];
 			Random rng = new Random();
-			for(int i = 0; i < 5; i++) {
+			for(int i = 0; i < 3; i++) {
 				int rNumber = rng.nextInt(this.totalWeight + 1);
 				int index = 0;
 				while(this.items.get(index).getWeight() < rNumber)
