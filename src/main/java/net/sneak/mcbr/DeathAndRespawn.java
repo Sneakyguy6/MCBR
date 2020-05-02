@@ -16,8 +16,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class DeathAndRespawn implements Listener {
+	private EndGame endGame;
+	
+	public DeathAndRespawn(EndGame e) {
+		this.endGame = e;
+	}
 	@EventHandler
 	public void onBeaconClick(PlayerInteractEvent e) {
 		if(e.getClickedBlock() == null)
@@ -54,6 +60,7 @@ public class DeathAndRespawn implements Listener {
 		if(!(e.getEntity() instanceof Player) || e.getCause() == DamageCause.ENTITY_ATTACK)
 			return;
 		e.setCancelled(this.handle((Player) e.getEntity(), e.getDamage()));
+		
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -65,11 +72,13 @@ public class DeathAndRespawn implements Listener {
 	
 	private boolean handle(Player p, double damage, Player... killer) {
 		if(damage > p.getHealth()) {
+			Scoreboard b = Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard();
 			p.setGameMode(GameMode.SPECTATOR);
 			if(killer.length == 1)
-				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + " was killed by " + killer[0] + ChatColor.YELLOW + " using " + ChatColor.AQUA + killer[0].getInventory().getItemInMainHand().getItemMeta().getDisplayName());
+				Bukkit.broadcastMessage(b.getEntryTeam(p.getDisplayName()).getColor() + p.getDisplayName() + ChatColor.YELLOW + " was killed by " + b.getEntryTeam(killer[0].getDisplayName()).getColor() + killer[0].getDisplayName() + ChatColor.YELLOW + " using " + ChatColor.AQUA + killer[0].getInventory().getItemInMainHand().getItemMeta().getDisplayName());
 			else
-				Bukkit.broadcastMessage(p.getDisplayName() + ChatColor.YELLOW + " died");
+				Bukkit.broadcastMessage(b.getEntryTeam(p.getDisplayName()).getColor() + p.getDisplayName() + ChatColor.YELLOW + " died");
+			this.endGame.onDeath(p);
 			return true;
 		}
 		return false;
