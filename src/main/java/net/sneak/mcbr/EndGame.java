@@ -33,9 +33,9 @@ public class EndGame implements Listener {
 		for(String i : t.getEntries())
 			if(Plugin.getInstance().getServer().getPlayer(i).getGameMode() != GameMode.SPECTATOR)
 				return;
-		Plugin.getInstance().getServer().broadcastMessage(t.getColor() + t.getDisplayName() + ChatColor.YELLOW + "has been eliminated!");
+		Plugin.getInstance().getServer().broadcastMessage(t.getColor() + t.getDisplayName() + ChatColor.YELLOW + " has been eliminated!");
 		Bukkit.getOnlinePlayers().forEach((player) -> {
-			player.sendTitle(t.getColor() + t.getDisplayName(), ChatColor.YELLOW + "has been eliminated!", 10, 50, 10);
+			player.sendTitle(t.getColor() + t.getDisplayName(), ChatColor.YELLOW + " has been eliminated!", 10, 50, 10);
 		});
 		for(int i = 0; i < this.teams.size(); i++) {
 			if(this.teams.get(i).equals(t)) {
