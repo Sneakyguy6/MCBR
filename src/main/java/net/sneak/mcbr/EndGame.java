@@ -78,7 +78,7 @@ public class EndGame implements Listener {
 								for (Player i : Plugin.getInstance().getServer().getOnlinePlayers()) {
 									out = ByteStreams.newDataOutput();
 									out.writeUTF("Connect");
-									out.writeUTF("creative");
+									out.writeUTF("lobby");
 									i.sendPluginMessage(Plugin.getInstance(), "BungeeCord", out.toByteArray());
 								}
 								Bukkit.shutdown();
