@@ -1,6 +1,7 @@
 package net.sneak.mcbr.loot;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -14,6 +15,8 @@ public class PlayerInteractListener implements Listener {
 	@EventHandler
 	public void onChestOpen(PlayerInteractEvent e) {
 		if(e.getClickedBlock() == null)
+			return;
+		if(e.getPlayer().getGameMode() == GameMode.SPECTATOR)
 			return;
 		if(!(e.getClickedBlock().getState() instanceof Chest))
 			return;

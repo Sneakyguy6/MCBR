@@ -83,7 +83,7 @@ public class Armour implements Listener {
 	private void updateArmour(Player p) {
 		if(p.getExp() == 0f) {
 			p.getInventory().setHelmet(null);
-			p.getInventory().setChestplate(null);
+			p.getInventory().setChestplate(new ItemStack(Material.GRAY_STAINED_GLASS_PANE));
 			p.getInventory().setLeggings(null);
 			p.getInventory().setBoots(null);
 		} else if(p.getExp() <= 0.33f) {

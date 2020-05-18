@@ -1,9 +1,6 @@
 package net.sneak.mcbr;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,17 +11,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 public class EndGame implements Listener {
-	private List<Team> teams;
+	//private List<Team> teams;
 	private boolean canMove;
+	private Scoreboard b;
 	
 	public EndGame() {
-		this.teams = new LinkedList<Team>();
+		this.b = Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard();
 		this.canMove = true;
 	}
 	
@@ -37,28 +37,31 @@ public class EndGame implements Listener {
 		Bukkit.getOnlinePlayers().forEach((player) -> {
 			player.sendTitle(t.getColor() + t.getDisplayName(), ChatColor.YELLOW + " has been eliminated!", 10, 50, 10);
 		});
-		for(int i = 0; i < this.teams.size(); i++) {
+		/*for(int i = 0; i < this.teams.size(); i++) {
 			if(this.teams.get(i).equals(t)) {
+				System.out.println("Eliminating team!");
 				this.teams.remove(i);
 				this.gameOver();
 				return;
 			}
-		}
+		}*/
+		t.unregister();
+		this.gameOver();
 	}
 	
 	private void gameOver() {
-		if(this.teams.size() > 1)
+		if(b.getTeams().size() > 1)
 			return;
-		new Thread(new Runnable() {
+		Bukkit.getScheduler().runTask(Plugin.getInstance(), new Runnable() {
 			@Override
 			public void run() {
 				try {
 					canMove = false;
-					Location[] podium = {new Location(Bukkit.getWorlds().get(0), -16, 94, 60),
-										 new Location(Bukkit.getWorlds().get(0), -18, 93, 57),
-										 new Location(Bukkit.getWorlds().get(0), -21, 95, 57)};
+					Location[] podium = {new Location(Bukkit.getWorlds().get(0), -16.5, 94.5, 60.5),
+										 new Location(Bukkit.getWorlds().get(0), -18.5, 93.5, 57.5),
+										 new Location(Bukkit.getWorlds().get(0), -21.5, 95.5, 57.5)};
 					Plugin.getInstance().getServer().getOnlinePlayers().forEach((p) -> {
-						if(!teams.get(0).equals(Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard().getEntryTeam(p.getDisplayName()))) {
+						if(!Iterables.getFirst(b.getTeams(), null).getEntries().contains(p.getDisplayName())) {
 							p.setGameMode(GameMode.SPECTATOR);
 							p.teleport(new Location(Bukkit.getWorlds().get(0), -19, 97, 49));
 						}
@@ -73,7 +76,10 @@ public class EndGame implements Listener {
 						@Override
 						public void run() {
 							try {
-								endGame();
+								new File(System.getProperty("user.dir") + "/restart.stamp").createNewFile();
+								Scoreboard b = Plugin.getInstance().getServer().getScoreboardManager().getMainScoreboard();
+								while(b.getTeams().size() != 0)
+									b.getTeam(Iterables.getFirst(b.getTeams(), null).getName()).unregister();
 								ByteArrayDataOutput out;
 								for (Player i : Plugin.getInstance().getServer().getOnlinePlayers()) {
 									out = ByteStreams.newDataOutput();
@@ -91,11 +97,7 @@ public class EndGame implements Listener {
 					e.printStackTrace();
 				}
 			}
-		}).start();
-	}
-	
-	private void endGame() throws IOException {
-		new File(System.getProperty("user.dir") + "/restart.stamp").createNewFile();
+		});
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)

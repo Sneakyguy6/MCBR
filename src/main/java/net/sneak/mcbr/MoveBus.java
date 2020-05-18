@@ -37,7 +37,7 @@ public class MoveBus {
 	
 	private static void paste(int beginningZValue) {
 		for(int i = -16; i <= 15; i++)
-			for(int j = 240; j <= 247; j++)
+			for(int j = 128; j <= 135; j++)
 				for(int k = beginningZValue; k >= beginningZValue - 24; k--) {
 					Bukkit.getServer().getWorlds().get(0).getBlockAt(i, j, k).setType(bus[i + 16][j - 240][beginningZValue - k].getType());
 					Bukkit.getServer().getWorlds().get(0).getBlockAt(i, j, k).setBlockData((bus[i + 16][j - 240][beginningZValue - k].getBlockData()), true);

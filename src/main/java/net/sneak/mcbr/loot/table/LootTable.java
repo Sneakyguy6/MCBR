@@ -67,7 +67,7 @@ public class LootTable {
 		for(Location l : ChestScanner.locate()) {
 			Chest c = (Chest) Bukkit.getWorlds().get(0).getBlockAt(l).getState();
 			c.getInventory().clear();
-			ItemStack[] itemsToAdd = new ItemStack[5];
+			ItemStack[] itemsToAdd = new ItemStack[3];
 			Random rng = new Random();
 			for(int i = 0; i < 3; i++) {
 				int rNumber = rng.nextInt(this.totalWeight + 1);

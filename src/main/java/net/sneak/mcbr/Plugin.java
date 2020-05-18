@@ -6,6 +6,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+
+import com.google.common.collect.Iterables;
 
 import net.sneak.mcbr.enchant.EnchantInventory;
 import net.sneak.mcbr.enchant.Interact;
@@ -26,6 +29,7 @@ public class Plugin extends JavaPlugin implements Listener {
 	public void onEnable() {
 		instance = this;
 		try {
+			super.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 			LootTable.init();
 			McbrSocket.init();
 			this.registerEvents();
@@ -62,6 +66,9 @@ public class Plugin extends JavaPlugin implements Listener {
 
 	@Override
 	public void onDisable() {
+		Scoreboard b = super.getServer().getScoreboardManager().getMainScoreboard();
+		while(b.getTeams().size() != 0)
+			b.getTeam(Iterables.getFirst(b.getTeams(), null).getName()).unregister();
 		try {
 			McbrSocket.getInstance().close();
 		} catch (Exception e) {

@@ -36,6 +36,7 @@ public class Join implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
+		e.getPlayer().setHealth(20);
 		if(this.counter == this.players.length) {
 			e.getPlayer().setGameMode(GameMode.SPECTATOR);
 		}

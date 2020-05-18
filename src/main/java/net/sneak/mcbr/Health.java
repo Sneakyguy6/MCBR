@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class Health implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onClick(PlayerInteractEvent e) {
-		if(e.getItem() == null || e.getPlayer().getHealth() == 20)
+		if(e.getItem() == null || e.getPlayer().getHealth() == 20 || e.getPlayer().getGameMode() == GameMode.SPECTATOR)
 			return;
 		else if(this.cooldowns.get(e.getPlayer()) > System.currentTimeMillis()) {
 			e.getPlayer().sendMessage(ChatColor.GREEN + "You cannot eat for " + ChatColor.DARK_GREEN + (((this.cooldowns.get(e.getPlayer()) - System.currentTimeMillis()) / 1000) + 1) + "s" );
